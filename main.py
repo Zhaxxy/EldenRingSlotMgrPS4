@@ -7,6 +7,15 @@ try:
     from tkinter import ttk
     from io import BytesIO
     import sys
+    import os
+
+
+    def resource_path(relative_path):
+        try:
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+        return os.path.join(base_path, relative_path)
 
     DELETE_NONE: dict = {'text':'Delete None','bg':'white','activebackground':'white'}
     REV_NONE: dict = {'text':'Resurrect None','bg':'white','activebackground':'white'}
@@ -259,10 +268,9 @@ try:
     filemenu2.add_command(label='COMING SOONG',)
 
     menu.add_cascade(label="Save 2", menu=filemenu2)
-    root.iconbitmap('Icon.ico')
+    root.iconbitmap(resource_path('Icon.ico'))
     root.protocol("WM_DELETE_WINDOW", lambda: (ask_save() if root.title().startswith('*') else None) or sys.exit())
-    e
     root.mainloop()
-except:
+except Exception:
+    a = format_exc()
     messagebox.showerror(title='Something went wrong',message=f'{a}\nPlease report to Zhaxxy alongside any information and saves')
-    
