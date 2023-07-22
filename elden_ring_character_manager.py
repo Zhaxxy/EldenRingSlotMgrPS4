@@ -110,7 +110,7 @@ def get_character_slot_name(slot_number: int, save_file: BytesIO) -> CharacterNa
     save_file.seek(0)
     save_file.seek(ersc.CHARACTER_DATA_SECTIONS_AND_OFFSETS[real_index].load_screen_offset)
     
-    name = save_file.read(ersc.CHARACTER_NAME_OFFSET).replace(b'\x00',b'').decode('utf-8')
+    name = save_file.read(ersc.CHARACTER_NAME_LENGTH).replace(b'\x00',b'').decode('utf-8')
     save_file.seek(0)
 
     return CharacterName(name,slot_number,is_character_slot_in_use(slot_number,save_file))
